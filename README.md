@@ -33,3 +33,6 @@ This repository contains code for conducting simulation studies and simulated ca
 - **fully_bayesian_model.stan**  
   Stan code specifying the core Bayesian Hierarchical Model.
 
+## Getting Started
+
+Before running the code, please set your R working directory to the folder containing the downloaded files.
