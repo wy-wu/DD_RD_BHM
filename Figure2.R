@@ -23,8 +23,9 @@
 library(cubature)
 library(tidyr)
 library(ggplot2)
+library(patchwork)
 
-source(theory_AC.R)
+source("theory_AC.R")
 
 # -----------------------------------------------------------
 # Scenario1 
@@ -156,7 +157,8 @@ plot_accuracy <- function(
     data_thry,
     data_simu,
     colors = c("#FF00FF", "cyan3"),
-    fill_colors = c("#FF00FF", "cyan3")
+    fill_colors = c("#FF00FF", "cyan3"),
+    y_lab="Accuracy"
 ){ggplot() + 
     geom_vline(xintercept=7, linetype=1,linewidth=0.5, colour="lightgray") +
     geom_line(data = data_thry, size=0.8,aes(x=u2, y=AC,colour=`Strategy and EC `, linetype=`Strategy and EC `)) +
@@ -170,7 +172,7 @@ plot_accuracy <- function(
     guides(shape = "none", fill = "none")  + 
     scale_y_continuous(breaks=seq(0, 1, by=0.05),limits=c(0.5,1)) + 
     scale_x_continuous(breaks=seq(0, 14, by=2))+
-    labs(x=expression(mu[2]), y="Accuracy", title="") + 
+    labs(x=expression(mu[2]), y=y_lab, title="") + 
     theme_bw(base_size=12)}
 
 #AC_ds,AC_rs 
@@ -178,7 +180,8 @@ s1_EC.S <- plot_accuracy(
   data_thry = S1_data$oc_thry_EC.S,
   data_simu = S1_data$oc_simu_EC.S,
   colors = c("#FF00FF", "cyan3"),
-  fill_colors = c("#FF00FF", "cyan3")
+  fill_colors = c("#FF00FF", "cyan3"),
+  y_lab="Accuracy"
 )
 
 # AC_dp,AC_rp 
@@ -186,7 +189,8 @@ s1_EC.p <- plot_accuracy(
   data_thry = S1_data$oc_thry_EC.P,
   data_simu = S1_data$oc_simu_EC.P,
   colors = c("red", "navyblue"),
-  fill_colors = c("red", "navyblue")
+  fill_colors = c("red", "navyblue"),
+  y_lab="Accuracy"
 )
 
 
@@ -207,7 +211,8 @@ s2_EC.S <- plot_accuracy(
   data_thry = S2_data$oc_thry_EC.S,
   data_simu = S2_data$oc_simu_EC.S,
   colors = c("#FF00FF", "cyan3"),
-  fill_colors = c("#FF00FF", "cyan3")
+  fill_colors = c("#FF00FF", "cyan3"),
+  y_lab=NULL
 )
 
 # AC_dp,AC_rp 
@@ -215,7 +220,8 @@ s2_EC.p <- plot_accuracy(
   data_thry = S2_data$oc_thry_EC.P,
   data_simu = S2_data$oc_simu_EC.P,
   colors = c("red", "navyblue"),
-  fill_colors = c("red", "navyblue")
+  fill_colors = c("red", "navyblue"),
+  y_lab=NULL
 )
 # -----------------------------------------------------------
 # Scenario3 
@@ -233,7 +239,8 @@ s3_EC.S <- plot_accuracy(
   data_thry = S3_data$oc_thry_EC.S,
   data_simu = S3_data$oc_simu_EC.S,
   colors = c("#FF00FF", "cyan3"),
-  fill_colors = c("#FF00FF", "cyan3")
+  fill_colors = c("#FF00FF", "cyan3"),
+  y_lab=NULL
 )
 
 # AC_dp,AC_rp 
@@ -241,7 +248,8 @@ s3_EC.p <- plot_accuracy(
   data_thry = S3_data$oc_thry_EC.P,
   data_simu = S3_data$oc_simu_EC.P,
   colors = c("red", "navyblue"),
-  fill_colors = c("red", "navyblue")
+  fill_colors = c("red", "navyblue"),
+  y_lab=NULL
 )
 
 # -----------------------------------------------------------
@@ -260,7 +268,8 @@ s4_EC.S <- plot_accuracy(
   data_thry = S4_data$oc_thry_EC.S,
   data_simu = S4_data$oc_simu_EC.S,
   colors = c("#FF00FF", "cyan3"),
-  fill_colors = c("#FF00FF", "cyan3")
+  fill_colors = c("#FF00FF", "cyan3"),
+  y_lab=NULL
 )
 
 # AC_dp,AC_rp 
@@ -268,7 +277,8 @@ s4_EC.p <- plot_accuracy(
   data_thry = S4_data$oc_thry_EC.P,
   data_simu = S4_data$oc_simu_EC.P,
   colors = c("red", "navyblue"),
-  fill_colors = c("red", "navyblue")
+  fill_colors = c("red", "navyblue"),
+  y_lab=NULL
 )
 
 
@@ -288,7 +298,8 @@ s5_EC.S <- plot_accuracy(
   data_thry = S5_data$oc_thry_EC.S,
   data_simu = S5_data$oc_simu_EC.S,
   colors = c("#FF00FF", "cyan3"),
-  fill_colors = c("#FF00FF", "cyan3")
+  fill_colors = c("#FF00FF", "cyan3"),
+  y_lab=NULL
 )
 
 # AC_dp,AC_rp 
@@ -296,5 +307,75 @@ s5_EC.p <- plot_accuracy(
   data_thry = S5_data$oc_thry_EC.P,
   data_simu = S5_data$oc_simu_EC.P,
   colors = c("red", "navyblue"),
-  fill_colors = c("red", "navyblue")
+  fill_colors = c("red", "navyblue"),
+  y_lab=NULL
 )
+
+
+
+# -----------------------------------------------------------
+# Combine all plots into a single figure
+#   Top row: EC-S plots for Scenarios 1–5
+#   Bottom row: EC-P plots for Scenarios 1–5
+# -----------------------------------------------------------
+
+
+# Define common theme 
+my_theme <- theme_bw(base_size = 12) +
+  theme(
+    plot.title = element_text(hjust = 0.5, size=10),
+    legend.position = "right"  # you can also set "right", etc.
+  )
+
+# Apply the theme to all plots
+plots_all <- list(
+  s1_EC.S, s2_EC.S, s3_EC.S, s4_EC.S, s5_EC.S,
+  s1_EC.p, s2_EC.p, s3_EC.p, s4_EC.p, s5_EC.p
+)
+
+plots_all <- lapply(plots_all, function(p) p + my_theme)
+
+# Reassign them
+s1_EC.S <- plots_all[[1]]
+s2_EC.S <- plots_all[[2]]
+s3_EC.S <- plots_all[[3]]
+s4_EC.S <- plots_all[[4]]
+s5_EC.S <- plots_all[[5]]
+s1_EC.p <- plots_all[[6]]
+s2_EC.p <- plots_all[[7]]
+s3_EC.p <- plots_all[[8]]
+s4_EC.p <- plots_all[[9]]
+s5_EC.p <- plots_all[[10]]
+
+# Top row: EC.S with scenario titles
+top_row <- (
+  (s1_EC.S + ggtitle(expression(atop("Scenario 1",paste(
+    r[1], " = ", r[2], " = 1, ",
+    s[1], " = ", s[2], " = 1"))))) |
+    (s2_EC.S + ggtitle(expression(atop("Scenario 2",paste(
+      r[1], " = ", r[2], " = 1, ",
+      s[1], " = 1, ",
+      s[2], " = 2"))))) |
+    (s3_EC.S + ggtitle(expression(atop("Scenario 3",paste(
+      r[1], " = ", r[2], " = 1, ",
+      s[1], " = ", s[2], " = 2"))))) |
+    (s4_EC.S + ggtitle(expression(atop("Scenario 4",paste(
+      r[1], " = 1, ",
+      r[2], " = 2, ",
+      s[1], " = ", s[2], " = 1"))))) |
+    (s5_EC.S + ggtitle(expression(atop("Scenario 5",paste(
+      r[1], " = ", r[2], " = 2, ",
+      s[1], " = ", s[2], " = 1")))))
+)
+# Bottom row: EC.P
+bottom_row <- (
+  s1_EC.p |
+    s2_EC.p |
+    s3_EC.p |
+    s4_EC.p |
+    s5_EC.p
+)
+
+# Combine rows and collect legends
+final_plot <- (top_row / bottom_row) + 
+  plot_layout(guides = "collect")
