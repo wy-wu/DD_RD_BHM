@@ -9,7 +9,7 @@
 
 
 library(cubature)
-source(theory_AC.R)
+source("theory_AC.R")
 
 # -----------------------------------------------------------
 # 4.1 Calculating the accuracy assuming that the true parameter
