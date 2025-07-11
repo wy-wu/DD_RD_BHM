@@ -22,7 +22,7 @@
   *Note: Three scenarios are evaluated; see the manuscript for details.*
 
 - **example3.R**  
-  A practical example script that demonstrates how to run the Bayesian Hierarchical Model (BHM) defined in `fully_bayesian_model.stan`. This example corresponds to Scenario 3.
+  A practical example script that demonstrates how to run the Bayesian Hierarchical Model (BHM) defined in `fully_bayesian_model.stan`. This example corresponds to Section 4.2 Scenario 3.
 
 - **fully_bayesian_model.stan**  
   Stan code specifying the core Bayesian Hierarchical Model.
