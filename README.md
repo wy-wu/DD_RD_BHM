@@ -1,23 +1,28 @@
-# DD_RD_BHM
-The repository contains the following files:
+# Deterministic Versus Randomized Decision Making Under Bayesian Hierarchical Model
 
-theory_AC.R: This script provides the foundational R functions for calculating the theoretical accuracy for each combination of decision strategy and evaluation criterion. 
-	     The primary functions are:
-	     DDEC_S: Deterministic decision (DD)’s accuracy under evaluation criterion based on the sub-population mean (EC-S)
-	     RDEC_S: Randomized decision (RD)’s accuracy under EC-S
-	     DDEC_P: DD’s accuracy under evaluation criterion based on the population mean (EC-P)
-	     RDEC_P: RD’s accuracy under EC-P
+## Contents
 
-Figure2.R: This script compares the theoretical accuracy (calculated using theory_AC.R) with simulation-based accuracy and plots the results. 
-	   The script explores five distinct scenarios characterized by varying population variances and sub-population variances 
+- **theory_AC.R**  
+  Provides foundational R functions for calculating the theoretical accuracy of each combination of decision strategy and evaluation criterion.  
+  **Primary functions:**  
+  - `DDEC_S`: Deterministic decision (DD) accuracy under evaluation criterion based on the sub-population mean (EC-S)  
+  - `RDEC_S`: Randomized decision (RD) accuracy under EC-S  
+  - `DDEC_P`: DD accuracy under evaluation criterion based on the population mean (EC-P)  
+  - `RDEC_P`: RD accuracy under EC-P  
 
+- **Figure2.R**  
+  Compares the theoretical accuracy (from `theory_AC.R`) with simulation-based accuracy and generates visualizations.  
+  This script explores five scenarios characterized by varying population variances and sub-population variances as described in paper.
 
-acc.calculate.r: This script is used for the simulated case studies described in the accompanying manuscript. 
-		 It performs Section 4 – Simulated Case Studies:
-		 4.1 Computes accuracy under the assumption that the true parameter values are known.
-		 4.2 Performs decision-making based on observed data and estimated parameters.
-		 Note: Three scenarios are evaluated; please refer to the manuscript for details.
+- **acc.calculate.r**  
+  Performs simulated case studies as described in the accompanying manuscript.  
+  **Key functionality:**  
+  - Section 4.1: Computes accuracy assuming true parameter values are known  
+  - Section 4.2: Conducts decision-making based on observed data and estimated parameters  
+  *Note: Three scenarios are evaluated; see the manuscript for details.*
 
-example3.R: This script serves as a practical example for running the BHM defined in fully_bayesian_model.stan. It processes data for a specific case study (Scenario 3).
+- **example3.R**  
+  A practical example script that demonstrates how to run the Bayesian Hierarchical Model (BHM) defined in `fully_bayesian_model.stan`. This example corresponds to Scenario 3.
 
-fully_bayesian_model.stan: This file defines the core statistical model—a Bayesian Hierarchical Model (BHM).
+- **fully_bayesian_model.stan**  
+  Stan code specifying the core Bayesian Hierarchical Model.
